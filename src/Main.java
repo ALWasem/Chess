@@ -4,7 +4,6 @@ public class Main {
         Board b = new Board();
         System.out.print(b.toString());
         b.updateBoard();
-        System.out.print("Hi Dad");
 
     }
 

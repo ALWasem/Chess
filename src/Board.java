@@ -63,7 +63,7 @@ public class Board {
         squareMap = new HashMap<>();
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                squareMap.put(Character.toString((char)(65+j)) + String.valueOf(8-i), board[i][j]);
+                squareMap.put((char)(65+j) + String.valueOf(8-i), board[i][j]);
             }
         }
     }
@@ -111,7 +111,7 @@ public class Board {
         createPiecesMap();
         createSquaresMap();
 
-        String move = "";
+        String move;
 
         while(true){
             Scanner s = new Scanner(System.in);
@@ -133,17 +133,17 @@ public class Board {
     }
 
     public String toString(){
-        String sBoard = "\n";
+        StringBuilder sBoard = new StringBuilder("\n");
         for(int i = 0; i < 8; i++){
-            sBoard += String.valueOf(8 - i) + " ";
+            sBoard.append(8 - i).append(" ");
             for(int j = 0; j < 8; j++){
-                sBoard += board[i][j].toString();
+                sBoard.append(board[i][j].toString());
             }
-           sBoard += "\n";
+           sBoard.append("\n");
         }
-        sBoard += "   A  B  C  D  E  F  G  H ";
-        sBoard += "\n";
-        return sBoard;
+        sBoard.append("   A  B  C  D  E  F  G  H ");
+        sBoard.append("\n");
+        return sBoard.toString();
     }
 
 
