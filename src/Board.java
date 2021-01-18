@@ -107,20 +107,43 @@ public class Board {
         return null;
     }
 
-    public void updateBoard(){
+    public void startGame(){
+
+        //initialize turn
+        int turn = 1;
+
+        //Create string maps to the pieces and squares
         createPiecesMap();
         createSquaresMap();
 
+        //initialize the input string
         String move;
 
+        //Loop until user ends program or a winner is decided
         while(true){
-            Scanner s = new Scanner(System.in);
-            System.out.print("Enter your move: ");
-            move = s.nextLine();
-            if(move.equals("End"))
-                break;
-            int firstSpace = move.indexOf(" ");
+            //print the board
+            System.out.print(this.toString());
 
+            //determine who's turn
+            if (turn % 2 == 0){
+                System.out.print("Black move: ");
+            }
+            else
+                System.out.print("White move: ");
+
+            //Users input
+            Scanner s = new Scanner(System.in);
+            move = s.nextLine();
+
+            //If End is entered, end the program
+            if(move.equals("End")) {
+                System.out.print("\n");
+                System.out.print("You have ended the game.");
+                break;
+            }
+
+            //Collect info from user input
+            int firstSpace = move.indexOf(" ");
             String piece = move.substring(0, firstSpace);
             String newPosition = move.substring(move.length() - 2);
             String oldPosition = getOldPosition(piece);
@@ -128,7 +151,8 @@ public class Board {
             squareMap.get(oldPosition).emptySquare();
             squareMap.get(newPosition).addPiece(pieceMap.get(piece));
 
-            System.out.print(this.toString());
+            //Add turn
+            turn ++;
         }
     }
 
@@ -145,6 +169,5 @@ public class Board {
         sBoard.append("\n");
         return sBoard.toString();
     }
-
 
 }
