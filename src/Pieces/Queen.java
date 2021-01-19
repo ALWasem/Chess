@@ -14,4 +14,9 @@ public class Queen extends Piece{
         else
             return "color error";
     }
+
+    public boolean isValidMove(String newSquare){
+        return true;
+    }
+
 }

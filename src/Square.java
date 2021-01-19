@@ -1,5 +1,6 @@
 import Pieces.Piece;
 
+
 public class Square {
 
     public Piece chessPiece;

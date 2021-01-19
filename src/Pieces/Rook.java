@@ -15,4 +15,8 @@ public class Rook extends Piece{
             return "color error";
     }
 
+    public boolean isValidMove(String newSquare){
+        return true;
+    }
+
 }

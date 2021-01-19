@@ -15,4 +15,8 @@ public class Bishop extends Piece{
             return "color error";
     }
 
+    public boolean isValidMove(String newSquare){
+        return true;
+    }
+
 }

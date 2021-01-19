@@ -59,6 +59,10 @@ public class Board {
         }
     }
 
+    //public void killPiece(String pieceName){
+        //Piece piece = pieceMap.get(pieceName);
+    //}
+
     public Board(){
         board = new Square[8][8];
         squareMap = new HashMap<>();
@@ -89,6 +93,7 @@ public class Board {
 
         //initialize turn
         int turn = 1;
+        String side;
 
         //Create string maps to the pieces and squares
         createPiecesMap();
@@ -104,9 +109,13 @@ public class Board {
             //determine who's turn
             if (turn % 2 == 0){
                 System.out.print("Black move: ");
+                side = "B";
             }
-            else
+            else{
                 System.out.print("White move: ");
+                side = "W";
+
+            }
 
             //Users input
             Scanner s = new Scanner(System.in);
@@ -116,6 +125,7 @@ public class Board {
             if(move.equals("End")) {
                 System.out.print("\n");
                 System.out.print("You have ended the game.");
+                System.out.print("\n");
                 break;
             }
 
@@ -127,23 +137,53 @@ public class Board {
 
             //If user enters an invalid piece
             if(!pieceMap.containsKey(pieceName)){
+                System.out.print("\n");
                 System.out.print("Piece does not exist!");
                 System.out.print("\n");
             }
             else{
-                Piece piece = pieceMap.get(pieceName);
-                String oldSquareName = piece.squareName;
 
                 //If user enters an invalid square
                 if(!squareMap.containsKey(newSquareName)){
+                    System.out.print("\n");
                     System.out.print("Square does not exist!");
                     System.out.print("\n");
                 }
                 else{
-                    squareMap.get(oldSquareName).emptySquare();
-                    squareMap.get(newSquareName).addPiece(piece);
-                    //Add turn
-                    turn ++;
+                    Piece piece = pieceMap.get(pieceName);
+
+                    //If the user inters a piece on the wrong side
+                    if(piece.side != side){
+                        System.out.print("\n");
+                        System.out.print("Wrong side!");
+                        System.out.print("\n");
+                    }
+                    else{
+                        Square newSquare = squareMap.get(newSquareName);
+                        String oldSquareName = piece.squareName;
+
+                        //Check if the new square has a friendly piece
+                        boolean isFriendlySquare = false;
+                        if(newSquare.chessPiece == null){
+                            isFriendlySquare = false;
+                        }
+                        else if(newSquare.chessPiece.side == side){
+                            isFriendlySquare = true;
+                        }
+
+                        if(!piece.isValidMove(newSquareName) || isFriendlySquare){
+                            System.out.print("\n");
+                            System.out.print("Invalid move!");
+                            System.out.print("\n");
+                        }
+                        else{
+                            squareMap.get(oldSquareName).emptySquare();
+                            squareMap.get(newSquareName).addPiece(piece);
+
+                            //Add turn
+                            turn ++;
+                        }
+                    }
                 }
             }
         }

@@ -1,6 +1,6 @@
 package Pieces;
 
-public class Piece {
+public abstract class Piece {
 
     public String side;
 
@@ -14,5 +14,8 @@ public class Piece {
         name = n;
 
     }
+
+
+    public abstract boolean isValidMove(String newSquareName);
 
 }
