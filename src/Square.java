@@ -4,12 +4,11 @@ public class Square {
 
     public Piece chessPiece;
 
-    public Square(){
-        chessPiece = null;
-    }
+    public String name;
 
-    public Square(Piece p){
-        chessPiece = p;
+    public Square(String n){
+        name = n;
+        chessPiece = null;
     }
 
     public String pieceName(){
@@ -24,6 +23,7 @@ public class Square {
 
     public void addPiece(Piece p){
         chessPiece = p;
+        chessPiece.squareName = name;
     }
 
     public String toString(){

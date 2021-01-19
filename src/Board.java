@@ -59,52 +59,30 @@ public class Board {
         }
     }
 
-    public void createSquaresMap(){
-        squareMap = new HashMap<>();
-        for(int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                squareMap.put((char)(65+j) + String.valueOf(8-i), board[i][j]);
-            }
-        }
-    }
-
     public Board(){
         board = new Square[8][8];
+        squareMap = new HashMap<>();
         createPieces();
+        String squareName;
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+
+                squareName = (char)(65+j) + String.valueOf(8-i);
+                Square square = new Square(squareName);
+                board[i][j] = square;
+
+                squareMap.put(squareName, square);
+
                 if(i == 0)
-                    board[i][j] = new Square(pieces[j]);
+                    square.addPiece(pieces[j]);
                 else if(i == 1)
-                    board[i][j] = new Square(pieces[j+8]);
+                    square.addPiece(pieces[j+8]);
                 else if(i == 6)
-                    board[i][j] = new Square(pieces[j+16]);
+                    square.addPiece(pieces[j+16]);
                 else if(i == 7)
-                    board[i][j] = new Square(pieces[j+24]);
-                else
-                    board[i][j] = new Square();
+                    square.addPiece(pieces[j+24]);
             }
         }
-    }
-
-    public <K, V> K getKey(Map<K, V> map, V value) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            if (value.equals(entry.getValue())) {
-                return entry.getKey();
-            }
-        }
-        return null;
-    }
-
-    public String getOldPosition(String piece){
-        for(int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (board[i][j].pieceName().equals(piece)) {
-                    return getKey(squareMap, board[i][j]);
-                }
-            }
-        }
-        return null;
     }
 
     public void startGame(){
@@ -114,7 +92,6 @@ public class Board {
 
         //Create string maps to the pieces and squares
         createPiecesMap();
-        createSquaresMap();
 
         //initialize the input string
         String move;
@@ -144,15 +121,31 @@ public class Board {
 
             //Collect info from user input
             int firstSpace = move.indexOf(" ");
-            String piece = move.substring(0, firstSpace);
-            String newPosition = move.substring(move.length() - 2);
-            String oldPosition = getOldPosition(piece);
+            String pieceName = move.substring(0, firstSpace);
+            String newSquareName = move.substring(move.length() - 2);
+            newSquareName = newSquareName.toUpperCase();
 
-            squareMap.get(oldPosition).emptySquare();
-            squareMap.get(newPosition).addPiece(pieceMap.get(piece));
+            //If user enters an invalid piece
+            if(!pieceMap.containsKey(pieceName)){
+                System.out.print("Piece does not exist!");
+                System.out.print("\n");
+            }
+            else{
+                Piece piece = pieceMap.get(pieceName);
+                String oldSquareName = piece.squareName;
 
-            //Add turn
-            turn ++;
+                //If user enters an invalid square
+                if(!squareMap.containsKey(newSquareName)){
+                    System.out.print("Square does not exist!");
+                    System.out.print("\n");
+                }
+                else{
+                    squareMap.get(oldSquareName).emptySquare();
+                    squareMap.get(newSquareName).addPiece(piece);
+                    //Add turn
+                    turn ++;
+                }
+            }
         }
     }
 

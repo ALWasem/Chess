@@ -6,6 +6,8 @@ public class Piece {
 
     public String name;
 
+    public String squareName;
+
     public Piece(String s, String n){
 
         side = s;
