@@ -153,7 +153,7 @@ public class Board {
                     Piece piece = pieceMap.get(pieceName);
 
                     //If the user inters a piece on the wrong side
-                    if(piece.side != side){
+                    if(!piece.side.equals(side)){
                         System.out.print("\n");
                         System.out.print("Wrong side!");
                         System.out.print("\n");
@@ -167,7 +167,7 @@ public class Board {
                         if(newSquare.chessPiece == null){
                             isFriendlySquare = false;
                         }
-                        else if(newSquare.chessPiece.side == side){
+                        else if(newSquare.chessPiece.side.equals(side)){
                             isFriendlySquare = true;
                         }
 
