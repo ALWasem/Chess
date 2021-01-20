@@ -1,4 +1,3 @@
-import Pieces.Piece;
 import java.util.*;
 
 public class Square {
