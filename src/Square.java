@@ -12,16 +12,6 @@ public class Square {
         chessPiece = null;
     }
 
-    public Piece getChessPiece(){
-        return this.chessPiece;
-    }
-
-    public String pieceName(){
-        if(chessPiece == null)
-            return "";
-        return chessPiece.name;
-    }
-
     public void emptySquare(){
         chessPiece = null;
     }

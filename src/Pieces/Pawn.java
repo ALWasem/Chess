@@ -7,9 +7,9 @@ public class Pawn extends Piece{
     }
 
     public String toString(){
-        if(side == "W")
+        if(side.equals("W"))
             return "P";
-        if(side == "B")
+        if(side.equals("B"))
             return "p";
         else
             return "color error";
@@ -23,7 +23,7 @@ public class Pawn extends Piece{
         int newNumber = Character.getNumericValue(newSquare.charAt(1));
 
         //White Pawn
-        if(side == "W"){
+        if(side.equals("W")){
             if((oldLetter == newLetter) && (newNumber == (oldNumber + 1))){
                 return true;
             }
