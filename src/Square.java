@@ -1,5 +1,5 @@
 import Pieces.Piece;
-
+import java.util.*;
 
 public class Square {
 
@@ -10,6 +10,10 @@ public class Square {
     public Square(String n){
         name = n;
         chessPiece = null;
+    }
+
+    public Piece getChessPiece(){
+        return this.chessPiece;
     }
 
     public String pieceName(){
@@ -25,6 +29,15 @@ public class Square {
     public void addPiece(Piece p){
         chessPiece = p;
         chessPiece.squareName = name;
+    }
+
+    public void killPiece(Piece p, Piece[] pieces){
+        System.out.print("\n");
+        System.out.print(p.name + " takes " + chessPiece.name);
+        System.out.print("\n");
+        int idx = Arrays.asList(pieces).indexOf(chessPiece);
+        pieces[idx] = null;
+        chessPiece = null;
     }
 
     public String toString(){

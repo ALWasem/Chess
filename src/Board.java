@@ -59,10 +59,6 @@ public class Board {
         }
     }
 
-    //public void killPiece(String pieceName){
-        //Piece piece = pieceMap.get(pieceName);
-    //}
-
     public Board(){
         board = new Square[8][8];
         squareMap = new HashMap<>();
@@ -162,13 +158,20 @@ public class Board {
                         Square newSquare = squareMap.get(newSquareName);
                         String oldSquareName = piece.squareName;
 
-                        //Check if the new square has a friendly piece
-                        boolean isFriendlySquare = false;
+                        //Check if the new square has a friendly piece or enemy piece
+                        boolean isFriendlySquare;
+                        boolean isEnemySquare;
                         if(newSquare.chessPiece == null){
                             isFriendlySquare = false;
+                            isEnemySquare = false;
                         }
-                        else if(newSquare.chessPiece.side.equals(side)){
+                        else if(newSquare.getChessPiece().side.equals(side)){
                             isFriendlySquare = true;
+                            isEnemySquare = false;
+                        }
+                        else{
+                            isEnemySquare = true;
+                            isFriendlySquare = false;
                         }
 
                         if(!piece.isValidMove(newSquareName) || isFriendlySquare){
@@ -177,6 +180,25 @@ public class Board {
                             System.out.print("\n");
                         }
                         else{
+
+                            //If enemy piece is in new square, kill it
+                            if(isEnemySquare){
+                                if(newSquare.getChessPiece().toString().equals("k")){
+                                    System.out.print("\n");
+                                    System.out.print("White Wins!");
+                                    System.out.print("\n");
+                                    break;
+                                }
+                                if(newSquare.getChessPiece().toString().equals("K")){
+                                    System.out.print("\n");
+                                    System.out.print("Black Wins!");
+                                    System.out.print("\n");
+                                    break;
+                                }
+                                newSquare.killPiece(piece, pieces);
+
+                            }
+
                             squareMap.get(oldSquareName).emptySquare();
                             squareMap.get(newSquareName).addPiece(piece);
 

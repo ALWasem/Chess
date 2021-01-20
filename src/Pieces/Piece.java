@@ -15,7 +15,6 @@ public abstract class Piece {
 
     }
 
-
     public abstract boolean isValidMove(String newSquareName);
 
 }
