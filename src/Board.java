@@ -101,6 +101,7 @@ public class Board {
 
         //Loop until user ends program or a winner is decided
         while(true){
+
             //print the board
             System.out.print(this.toString());
 
@@ -148,68 +149,78 @@ public class Board {
                     System.out.print("\n");
                 }
                 else{
+
                     Piece piece = pieceMap.get(pieceName);
 
-                    //If the user inters a piece on the wrong side
-                    if(!piece.side.equals(side)){
+                    //If user enters already captured piece
+                    if(!Arrays.asList(pieces).contains(piece)){
                         System.out.print("\n");
-                        System.out.print("Wrong side!");
+                        System.out.print("Piece has already been captured!");
                         System.out.print("\n");
                     }
                     else{
-                        Square newSquare = squareMap.get(newSquareName);
-                        String oldSquareName = piece.squareName;
 
-                        //Check if the new square has a friendly piece or enemy piece
-                        boolean isFriendlySquare;
-                        boolean isEnemySquare;
-                        if(newSquare.chessPiece == null){
-                            isFriendlySquare = false;
-                            isEnemySquare = false;
-                        }
-                        else if(newSquare.chessPiece.side.equals(side)){
-                            isFriendlySquare = true;
-                            isEnemySquare = false;
-                        }
-                        else{
-                            isEnemySquare = true;
-                            isFriendlySquare = false;
-                        }
-
-                        //If move is invalid or into a friendly piece
-                        if(!piece.isValidMove(newSquareName) || isFriendlySquare){
+                        //If the user inters a piece on the wrong side
+                        if(!piece.side.equals(side)){
                             System.out.print("\n");
-                            System.out.print("Invalid move!");
+                            System.out.print("Wrong side!");
                             System.out.print("\n");
                         }
                         else{
+                            Square newSquare = squareMap.get(newSquareName);
+                            Square oldSquare = piece.square;
 
-                            //If enemy piece is in new square, kill it
-                            if(isEnemySquare){
-                                
-                                //If enemy piece is the King the game is over
-                                if(newSquare.chessPiece.toString().equals("k")){
-                                    System.out.print("\n");
-                                    System.out.print("White Wins!");
-                                    System.out.print("\n");
-                                    break;
-                                }
-                                if(newSquare.chessPiece.toString().equals("K")){
-                                    System.out.print("\n");
-                                    System.out.print("Black Wins!");
-                                    System.out.print("\n");
-                                    break;
-                                }
-                                
-                                newSquare.killPiece(piece, pieces);
+                            //Check if the new square has a friendly piece or enemy piece
+                            boolean isFriendlySquare;
+                            boolean isEnemySquare;
+                            if(newSquare.chessPiece == null){
+                                isFriendlySquare = false;
+                                isEnemySquare = false;
+                            }
+                            else if(newSquare.chessPiece.side.equals(side)){
+                                isFriendlySquare = true;
+                                isEnemySquare = false;
+                            }
+                            else{
+                                isEnemySquare = true;
+                                isFriendlySquare = false;
                             }
 
-                            //Empty old square and add piece to new square
-                            squareMap.get(oldSquareName).emptySquare();
-                            squareMap.get(newSquareName).addPiece(piece);
+                            //If move is invalid or into a friendly piece
+                            if(!piece.isValidMove(newSquare, squareMap) || isFriendlySquare){
+                                System.out.print("\n");
+                                System.out.print("Invalid move!");
+                                System.out.print("\n");
+                            }
+                            else{
 
-                            //Add turn
-                            turn ++;
+                                //If enemy piece is in new square, kill it
+                                if(isEnemySquare){
+
+                                    //If enemy piece is the King the game is over
+                                    if(newSquare.chessPiece.toString().equals("k")){
+                                        System.out.print("\n");
+                                        System.out.print("White Wins!");
+                                        System.out.print("\n");
+                                        break;
+                                    }
+                                    if(newSquare.chessPiece.toString().equals("K")){
+                                        System.out.print("\n");
+                                        System.out.print("Black Wins!");
+                                        System.out.print("\n");
+                                        break;
+                                    }
+
+                                    newSquare.killPiece(piece, pieces);
+                                }
+
+                                //Empty old square and add piece to new square
+                                oldSquare.emptySquare();
+                                newSquare.addPiece(piece);
+
+                                //Add turn
+                                turn ++;
+                            }
                         }
                     }
                 }

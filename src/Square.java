@@ -17,13 +17,13 @@ public class Square {
 
     public void addPiece(Piece p){
         chessPiece = p;
-        chessPiece.squareName = name;
+        chessPiece.square = this;
         chessPiece.moveCount += 1;
     }
 
     public void killPiece(Piece p, Piece[] pieces){
         System.out.print("\n");
-        System.out.print(p.name + " takes " + chessPiece.name);
+        System.out.print(p.name + " captures " + chessPiece.name);
         System.out.print("\n");
         int idx = Arrays.asList(pieces).indexOf(chessPiece);
         pieces[idx] = null;

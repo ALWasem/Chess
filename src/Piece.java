@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public abstract class Piece {
 
     public String side;
@@ -6,7 +8,7 @@ public abstract class Piece {
 
     public int moveCount;
 
-    public String squareName;
+    public Square square;
 
     public Piece(String s, String n, int m){
 
@@ -16,6 +18,8 @@ public abstract class Piece {
 
     }
 
-    public abstract boolean isValidMove(String newSquareName);
+    public abstract boolean isValidMove(Square newSquareName, HashMap<String, Square> squareMap);
+
+
 
 }
