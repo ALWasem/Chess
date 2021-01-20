@@ -2,8 +2,8 @@ package Pieces;
 
 public class Bishop extends Piece{
 
-    public Bishop(String s, String n) {
-        super(s, n);
+    public Bishop(String s, String n, int m) {
+        super(s, n, m);
     }
 
     public String toString(){

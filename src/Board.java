@@ -16,39 +16,43 @@ public class Board {
 
         pieces = new Piece[32];
 
-        pieces[0] = new Rook("B", "qr");
-        pieces[1] = new Knight("B", "qn");
-        pieces[2] = new Bishop("B", "qb");
-        pieces[3] = new Queen("B", "q");
-        pieces[4] = new King("B", "k");
-        pieces[5] = new Bishop("B", "kb");
-        pieces[6] = new Knight("B", "kn");
-        pieces[7] = new Rook("B", "kr");
-        pieces[8] = new Pawn("B", "qrp");
-        pieces[9] = new Pawn("B", "qnp");
-        pieces[10] = new Pawn("B", "qbp");
-        pieces[11] = new Pawn("B", "qp");
-        pieces[12] = new Pawn("B", "kp");
-        pieces[13] = new Pawn("B", "kbp");
-        pieces[14] = new Pawn("B", "knp");
-        pieces[15] = new Pawn("B", "krp");
+        String black = "B";
+        String white = "W";
+        int moveCount = -1;
 
-        pieces[16] = new Pawn("W", "QRP");
-        pieces[17] = new Pawn("W", "QNP");
-        pieces[18] = new Pawn("W", "QBP");
-        pieces[19] = new Pawn("W", "QP");
-        pieces[20] = new Pawn("W", "KP");
-        pieces[21] = new Pawn("W", "KBP");
-        pieces[22] = new Pawn("W", "KNP");
-        pieces[23] = new Pawn("W", "KRP");
-        pieces[24] = new Rook("W", "QR");
-        pieces[25] = new Knight("W", "QN");
-        pieces[26] = new Bishop("W", "QB");
-        pieces[27] = new Queen("W", "Q");
-        pieces[28] = new King("W", "K");
-        pieces[29] = new Bishop("W", "KB");
-        pieces[30] = new Knight("W", "KN");
-        pieces[31] = new Rook("W", "KR");
+        pieces[0] = new Rook(black, "qr", moveCount);
+        pieces[1] = new Knight(black, "qn", moveCount);
+        pieces[2] = new Bishop(black, "qb", moveCount);
+        pieces[3] = new Queen(black, "q", moveCount);
+        pieces[4] = new King(black, "k", moveCount);
+        pieces[5] = new Bishop(black, "kb", moveCount);
+        pieces[6] = new Knight(black, "kn", moveCount);
+        pieces[7] = new Rook(black, "kr", moveCount);
+        pieces[8] = new Pawn(black, "qrp", moveCount);
+        pieces[9] = new Pawn(black, "qnp", moveCount);
+        pieces[10] = new Pawn(black, "qbp", moveCount);
+        pieces[11] = new Pawn(black, "qp", moveCount);
+        pieces[12] = new Pawn(black, "kp", moveCount);
+        pieces[13] = new Pawn(black, "kbp", moveCount);
+        pieces[14] = new Pawn(black, "knp", moveCount);
+        pieces[15] = new Pawn(black, "krp", moveCount);
+
+        pieces[16] = new Pawn(white, "QRP", moveCount);
+        pieces[17] = new Pawn(white, "QNP", moveCount);
+        pieces[18] = new Pawn(white, "QBP", moveCount);
+        pieces[19] = new Pawn(white, "QP", moveCount);
+        pieces[20] = new Pawn(white, "KP", moveCount);
+        pieces[21] = new Pawn(white, "KBP", moveCount);
+        pieces[22] = new Pawn(white, "KNP", moveCount);
+        pieces[23] = new Pawn(white, "KRP", moveCount);
+        pieces[24] = new Rook(white, "QR", moveCount);
+        pieces[25] = new Knight(white, "QN", moveCount);
+        pieces[26] = new Bishop(white, "QB", moveCount);
+        pieces[27] = new Queen(white, "Q", moveCount);
+        pieces[28] = new King(white, "K", moveCount);
+        pieces[29] = new Bishop(white, "KB", moveCount);
+        pieces[30] = new Knight(white, "KN", moveCount);
+        pieces[31] = new Rook(white, "KR", moveCount);
 
     }
 
@@ -165,7 +169,7 @@ public class Board {
                             isFriendlySquare = false;
                             isEnemySquare = false;
                         }
-                        else if(newSquare.getChessPiece().side.equals(side)){
+                        else if(newSquare.chessPiece.side.equals(side)){
                             isFriendlySquare = true;
                             isEnemySquare = false;
                         }
@@ -174,6 +178,7 @@ public class Board {
                             isFriendlySquare = false;
                         }
 
+                        //If move is invalid or into a friendly piece
                         if(!piece.isValidMove(newSquareName) || isFriendlySquare){
                             System.out.print("\n");
                             System.out.print("Invalid move!");
@@ -183,22 +188,25 @@ public class Board {
 
                             //If enemy piece is in new square, kill it
                             if(isEnemySquare){
-                                if(newSquare.getChessPiece().toString().equals("k")){
+                                
+                                //If enemy piece is the King the game is over
+                                if(newSquare.chessPiece.toString().equals("k")){
                                     System.out.print("\n");
                                     System.out.print("White Wins!");
                                     System.out.print("\n");
                                     break;
                                 }
-                                if(newSquare.getChessPiece().toString().equals("K")){
+                                if(newSquare.chessPiece.toString().equals("K")){
                                     System.out.print("\n");
                                     System.out.print("Black Wins!");
                                     System.out.print("\n");
                                     break;
                                 }
+                                
                                 newSquare.killPiece(piece, pieces);
-
                             }
 
+                            //Empty old square and add piece to new square
                             squareMap.get(oldSquareName).emptySquare();
                             squareMap.get(newSquareName).addPiece(piece);
 

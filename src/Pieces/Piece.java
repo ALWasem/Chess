@@ -6,12 +6,15 @@ public abstract class Piece {
 
     public String name;
 
+    public int moveCount;
+
     public String squareName;
 
-    public Piece(String s, String n){
+    public Piece(String s, String n, int m){
 
         side = s;
         name = n;
+        moveCount = m;
 
     }
 

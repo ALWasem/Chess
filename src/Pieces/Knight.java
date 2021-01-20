@@ -2,8 +2,8 @@ package Pieces;
 
 public class Knight extends Piece{
 
-    public Knight(String s, String n) {
-        super(s, n);
+    public Knight(String s, String n, int m) {
+        super(s, n, m);
     }
 
     public String toString(){

@@ -29,6 +29,7 @@ public class Square {
     public void addPiece(Piece p){
         chessPiece = p;
         chessPiece.squareName = name;
+        chessPiece.moveCount += 1;
     }
 
     public void killPiece(Piece p, Piece[] pieces){

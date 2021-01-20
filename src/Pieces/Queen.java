@@ -2,8 +2,8 @@ package Pieces;
 
 public class Queen extends Piece{
 
-    public Queen(String s, String n) {
-        super(s, n);
+    public Queen(String s, String n, int m) {
+        super(s, n, m);
     }
 
     public String toString(){

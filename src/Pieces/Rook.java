@@ -2,8 +2,8 @@ package Pieces;
 
 public class Rook extends Piece{
 
-    public Rook(String s, String n) {
-        super(s, n);
+    public Rook(String s, String n, int m) {
+        super(s, n, m);
     }
 
     public String toString(){
