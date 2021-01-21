@@ -65,6 +65,7 @@ public class Board {
         board = new Square[8][8];
         squareMap = new HashMap<>();
         createPieces();
+        createPiecesMap();
         String squareName;
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -92,9 +93,6 @@ public class Board {
         //initialize turn
         int turn = 1;
         String side;
-
-        //Create string maps to the pieces and squares
-        createPiecesMap();
 
         //initialize the input string
         String move;
@@ -152,8 +150,8 @@ public class Board {
 
                     Piece piece = pieceMap.get(pieceName);
 
-                    //If user enters already captured piece
-                    if(!Arrays.asList(pieces).contains(piece)){
+                    //If user enters an already captured piece
+                    if(pieceMap.get(pieceName).isCaptured){
                         System.out.print("\n");
                         System.out.print("Piece has already been captured!");
                         System.out.print("\n");
@@ -211,7 +209,7 @@ public class Board {
                                         break;
                                     }
 
-                                    newSquare.killPiece(piece, pieces);
+                                    newSquare.killPiece(piece);
                                 }
 
                                 //Empty old square and add piece to new square

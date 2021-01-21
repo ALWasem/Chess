@@ -21,12 +21,11 @@ public class Square {
         chessPiece.moveCount += 1;
     }
 
-    public void killPiece(Piece p, Piece[] pieces){
+    public void killPiece(Piece killingPiece){
         System.out.print("\n");
-        System.out.print(p.name + " captures " + chessPiece.name);
+        System.out.print(killingPiece.name + " captures " + chessPiece.name);
         System.out.print("\n");
-        int idx = Arrays.asList(pieces).indexOf(chessPiece);
-        pieces[idx] = null;
+        chessPiece.isCaptured = true;
         chessPiece = null;
     }
 

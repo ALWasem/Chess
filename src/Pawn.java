@@ -1,9 +1,13 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Pawn extends Piece {
 
     public Pawn(String s, String n, int m) {
         super(s, n, m);
+    }
+
+    public Pawn(String s, String n) {
+        super(s, n);
     }
 
     public String toString(){
@@ -24,51 +28,35 @@ public class Pawn extends Piece {
 
         boolean isEnemySquare = newSquare.chessPiece != null;
 
-        //White Pawn
-        if(side.equals("W")){
-            //Pawn can move up one
-            if((oldLetter == newLetter) && (newNumber == (oldNumber + 1)) &&
-                !isEnemySquare){
-                return true;
-            }
-            //If its the pawns first move it can move up two
-            if((oldLetter == newLetter) && (newNumber == (oldNumber + 2)) &&
-                !isEnemySquare && moveCount == 0){
-                return true;
-            }
-            //Attack Move (diagonal)
-            if( (int) oldLetter == (int) newLetter + 1 && (newNumber == (oldNumber + 1)) &&
-                isEnemySquare){
-                return true;
-            }
-            if( (int) oldLetter == (int) newLetter - 1 && (newNumber == (oldNumber + 1)) &&
-                isEnemySquare){
-                return true;
-            }
+        int sign;
+
+        //White pawn
+        if(side.equals("W"))
+            sign = 1;
+        //Black pawn
+        else
+            sign = -1;
+
+        //Pawn can move up one
+        if((oldLetter == newLetter) && (newNumber == (oldNumber + sign)) &&
+            !isEnemySquare){
+            return true;
         }
-        //Black Pawn
-        else{
-            if((oldLetter == newLetter) && (newNumber == (oldNumber - 1)) &&
-                !isEnemySquare){
-                return true;
-            }
-            //If its the pawns first move it can move up two
-            if((oldLetter == newLetter) && (newNumber == (oldNumber - 2)) &&
-                !isEnemySquare && moveCount == 0){
-                return true;
-            }
-            //Attack Move (diagonal)
-            if( (int) oldLetter == (int) newLetter + 1 && (newNumber == (oldNumber - 1)) &&
-                isEnemySquare){
-                return true;
-            }
-            if( (int) oldLetter == (int) newLetter - 1 && (newNumber == (oldNumber - 1)) &&
-                isEnemySquare){
-                return true;
-            }
+        //If its the pawns first move it can move up two
+        if((oldLetter == newLetter) && (newNumber == (oldNumber + 2*sign)) &&
+            !isEnemySquare && moveCount == 0){
+            return true;
+        }
+        //Attack Move (diagonal)
+        if( (int) oldLetter == (int) newLetter + 1 && (newNumber == (oldNumber + sign)) &&
+            isEnemySquare){
+            return true;
+        }
+        if( (int) oldLetter == (int) newLetter - 1 && (newNumber == (oldNumber + 2*sign)) &&
+            isEnemySquare){
+            return true;
         }
         return false;
     }
-
 
 }

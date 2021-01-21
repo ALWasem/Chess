@@ -1,9 +1,13 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Knight extends Piece {
 
     public Knight(String s, String n, int m) {
         super(s, n, m);
+    }
+
+    public Knight(String s, String n) {
+        super(s, n);
     }
 
     public String toString(){

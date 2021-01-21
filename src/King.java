@@ -1,9 +1,13 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class King extends Piece {
 
     public King(String s, String n, int m) {
         super(s, n, m);
+    }
+
+    public King(String s, String n) {
+        super(s, n);
     }
 
     public String toString(){

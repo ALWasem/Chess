@@ -1,9 +1,13 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Queen extends Piece {
 
     public Queen(String s, String n, int m) {
         super(s, n, m);
+    }
+
+    public Queen(String s, String n) {
+        super(s, n);
     }
 
     public String toString(){
@@ -37,7 +41,7 @@ public class Queen extends Piece {
 
             //Check if Up/Down or Left/Right
             if(oldLetter == newLetter)
-                squaresMoved = Math.abs(oldNumber - oldLetter);
+                squaresMoved = Math.abs(oldNumber - newNumber);
             else
                 squaresMoved = Math.abs((int)oldLetter - (int)newLetter);
 

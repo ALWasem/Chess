@@ -1,9 +1,13 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Rook extends Piece {
 
     public Rook(String s, String n, int m) {
         super(s, n, m);
+    }
+
+    public Rook(String s, String n) {
+        super(s, n);
     }
 
     public String toString(){
@@ -36,7 +40,7 @@ public class Rook extends Piece {
 
             //Check if Up/Down or Left/Right
             if(oldLetter == newLetter)
-                squaresMoved = Math.abs(oldNumber - oldLetter);
+                squaresMoved = Math.abs(oldNumber - newNumber);
             else
                 squaresMoved = Math.abs((int)oldLetter - (int)newLetter);
 
